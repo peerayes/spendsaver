@@ -1,10 +1,10 @@
 # spendsaver BETA-1<br>
 next.js 14<br>
 nede v20.10.0, npm 10.5.0<br>
+npm install<br>
 npm run dev
 
-
-Title: "Income-Expense Tracking App with Local Storage Integration"<br>
+Title: Spendsaver(Income-Expense) Tracking App with Local Storage Integration<br>
 Description:
 This repository contains the source code for an income-expense tracking application developed to help users manage their finances efficiently. The app allows users to input and track their income and expenses, providing them with insights into their spending habits and financial health.<br>
 
