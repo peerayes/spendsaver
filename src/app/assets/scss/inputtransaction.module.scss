@@ -1,0 +1,171 @@
+.section {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+    background: var(--theme-yellow);
+
+    &__header {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url(/../checkerboard-top-green.svg) no-repeat #2b3739;
+        background-size: cover;
+        position: relative;
+        h2 {
+            color: var(--white-primary);
+            position: relative;
+            z-index: 2;
+            font-size: 24px;
+        }
+        &::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 64px;
+            background: linear-gradient(180deg, rgba(78, 127, 135, 0.00) 0%, #4E7F87 100%);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 2;
+        }
+    }
+}
+.inputsection {
+    margin: 0;
+    padding: 16px 20px 48px;
+    position: relative;
+    border-radius: 0 0 32px 32px;
+    background: var(--theme-green);
+    position: relative;
+    overflow: hidden;
+    // box-shadow: rgb(43 55 57) 0px 25px 45px;
+    box-shadow: rgb(56 66 39) 0px 25px 45px;
+    &__section {
+        margin-bottom: 16px;
+        position: relative;
+        &__container {
+            position: relative;
+            input {
+                padding: 8px 36px 8px 16px;
+                color: var(--dark-200);
+                border-radius: 20px;
+                width: 100%;
+                &:focus-visible {
+                    outline: none;
+                }
+                &::placeholder {
+                    font-size: 14px;
+                    color: var(--dark-600);
+                }
+            }
+            span {
+                display: block;
+                svg {
+                    position: absolute;
+                    right: 8px;
+                    top: 12px;
+                    background: var(--theme-green);
+                    stroke: var(--white-primary);
+                    border-radius: 100%;
+                    width: 16px;
+                    height: 16px;
+                    padding: 2px;
+                }
+            }
+        }
+        &__footer {
+            display: flex;
+            position: relative;
+            z-index: 3;
+        }
+    }
+    &__label {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--yellow-primary);
+        font-size: 0.875rem;
+        margin-bottom: 8px;
+    }
+    &__select {
+        width: 100%;
+        padding: 0;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &__type {
+            position: relative;
+            width: 50%;
+            overflow: hidden;
+            border-top-left-radius: 36px;
+            border-bottom-left-radius: 36px;
+            &:last-child {
+                border-top-right-radius: 36px;
+                border-bottom-right-radius: 36px;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
+    &::after {
+        content: '';
+        background: url(/../checkerboard-top-green.svg) no-repeat;
+        width: 100%;
+        height: 100%;
+        max-height: 66px;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-size: cover;
+        background-position: center center;
+        transform: rotate(180deg);
+        opacity: 0.25;
+    }
+}
+
+.inputsection__select{
+    label {
+        width: 100%;
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        background: #3A666E;
+        color: var(--theme-green);
+        padding: 22px 0;
+        transition: all 200ms ease-in;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 700;
+        svg {
+            margin-right: 8px;
+        }
+    }
+    input[type="radio"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+    .checked {
+        background: var(--yellow-primary);
+        color: var(--theme-green);
+    }
+}

@@ -1,0 +1,103 @@
+.btn {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__primary {
+        color: var(--yellow-200);
+        margin-left: 8px;
+        width: 50%;
+        border-radius: 28px;
+        border: 1px solid var(--yellow-200);
+        &:disabled {
+            background: var(--theme-green);
+            color: var(--theme-blue);
+            border: 1px solid var(--theme-blue);
+        }
+    }
+    &__cancel {
+        background: #7f2020;
+        width: 50%;
+        margin-right: 8px;
+        border-radius: 22px;
+    }
+    &__backbefore {
+        background: #3A666E;
+        color: var(--theme-white);
+        width: 50%;
+        margin-right: 8px;
+        border-radius: 28px;
+        border: none;
+    }
+    &__addItem {
+        color: var(--yellow-200);
+        // background: rgb(173,61,61);
+        // background: linear-gradient(29deg, rgba(173,61,61,1) 0%, rgba(173,61,61,1) 20%, rgba(212,148,74,1) 20%, rgba(217,160,76,1) 40%, rgba(242,233,215,1) 40%, rgba(242,233,215,1) 60%, rgba(78,127,135,1) 60%, rgba(78,127,135,1) 80%, rgba(57,74,101,1) 80%, rgba(57,74,101,1) 100%);
+        width: fit-content;
+        margin: 16px auto 0;
+        border: 1px solid var(--yellow-200);
+        border-radius: 29px;
+        padding: 8px 16px;
+        background: var(--theme-red);
+        position: relative;
+        z-index: 3;
+    }
+    &__profile {
+        padding: 0;
+    }
+    &__addMoney {
+        background: var(--yellow-blue);
+        color: var(--yellow-primary);
+        border: 1px solid var(--yellow-primary);
+        width: fit-content;
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        z-index: 4;
+        font-size: 0.875rem;
+        z-index: 10;
+        border-radius: 100%;
+        width: 64px;
+        height: 64px;
+    }
+    &__loading {
+        position: relative;
+        overflow: hidden;
+        background: var(--theme-green);
+        border: 1px solid var(--yellow-200);
+        &:disabled {
+            background: var(--theme-green);
+            color: var(--yellow-200);
+            border: 1px solid var(--yellow-200);
+        }
+        span {
+            z-index: 4;
+        }
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #71d46f;
+            z-index: 1;
+            animation-name: fillRight;
+            animation-fill-mode: forwards;
+            animation-duration: 2s;
+        }
+    }
+
+}
+.loading[disabled] {
+    background-color: #71d46f;
+}
+
+@keyframes fillRight {
+    0% { width: 0; }
+    100% { width: 100%; }
+}

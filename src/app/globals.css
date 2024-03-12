@@ -1,0 +1,60 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+:root {
+  --yellow-primary  : #ffeb3b;
+  --yellow-200      : #ffed58;
+  --yellow-300      : #ffef70;
+  --yellow-400      : #fff186;
+  --yellow-500      : #fff49b;
+  --yellow-600      : #fff6af;
+
+  --dark-primary    : #121212;
+  --dark-100        : #1a1a1a;
+  --dark-200        : #282828;
+  --dark-300        : #3f3f3f;
+  --dark-400        : #575757;
+  --dark-300        : #717171;
+  --dark-600        : #8b8b8b;
+
+  --mixcolor-primary: #262419;
+  --mixcolor-100    : #3c382e;
+  --mixcolor-200    : #3b382e;
+  --mixcolor-300    : #504e45;
+  --mixcolor-400    : #67655c;
+  --mixcolor-500    : #7e7d75;
+  --mixcolor-600    : #97958f;
+
+  --white-primary   : #fff;
+  
+  --theme-red           : #AD3D3D;
+  --theme-yellow        : #D9A04C;
+  --theme-white         : #F2E9D7;
+  --theme-green         : #4E7F87;
+  --theme-blue          : #394A65;
+
+  --theme-red-second    : #9E3737;
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+    background: var(--theme-red);
+}
