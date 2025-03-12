@@ -131,12 +131,15 @@ const InputTranSactions: React.FC<InputTransactionsProps> = ({
       }, 1500);
     }
   };
+
   const handleCancel = () => {
     handleClose();
   };
+
   const addToCalculation = (value: string) => {
     setCalculation((prevCalculation) => prevCalculation + value);
   };
+
   const calculateResult = () => {
     try {
       const result = eval(calculation);
@@ -145,9 +148,96 @@ const InputTranSactions: React.FC<InputTransactionsProps> = ({
       setCalculation("Error");
     }
   };
+
   const clearCalculation = () => {
     setCalculation("");
     setAmount("");
+  };
+
+  // แก้ไขฟังก์ชัน handleSubmit เพื่อรวมการทำงานของ onSubmit และ handleClick
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // บันทึกสถานะ button
+    const saveButton = saveButtonRef.current;
+    if (!saveButton) return;
+
+    // แสดงสถานะกำลังบันทึก
+    saveButton.disabled = true;
+    saveButton.classList.add(`${buttonStyle.btn__loading}`);
+    saveButton.innerHTML = "<span>กำลังบันทึก</span>";
+
+    // สร้าง transaction ใหม่
+    const newTransaction = {
+      id: generateUniqueId(),
+      text: text,
+      amount: parseFloat(calculation),
+      type: selectedOption,
+      date: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }),
+    };
+
+    // บันทึกลง localStorage
+    try {
+      const userData = localStorage.getItem("user");
+      const user = userData ? JSON.parse(userData) : { transactions: {} };
+      const currentDate = new Date();
+      const buddhistYear = currentDate.getFullYear() + 543;
+      const currentYear = buddhistYear.toString();
+      const currentMonth = (currentDate.getMonth() + 1).toString();
+      const currentDay = currentDate.getDate().toString();
+      const key = `${currentDay}/${currentMonth}/${currentYear}`;
+
+      console.log("Current selection:", selectedOption); // ตรวจสอบค่า selectedOption
+
+      const updatedTransactions = {
+        ...user.transactions,
+        [currentYear]: {
+          ...user.transactions?.[currentYear],
+          [currentMonth]: {
+            ...user.transactions?.[currentYear]?.[currentMonth],
+            [key]: {
+              data: [
+                ...(user.transactions?.[currentYear]?.[currentMonth]?.[key]
+                  ?.data || []),
+                newTransaction,
+              ],
+              totalToday:
+                selectedOption === "income"
+                  ? (user.transactions?.[currentYear]?.[currentMonth]?.[key]
+                      ?.totalToday || 0) + +calculation
+                  : (user.transactions?.[currentYear]?.[currentMonth]?.[key]
+                      ?.totalToday || 0) - +calculation,
+            },
+          },
+        },
+      };
+
+      console.log("Updated Transactions:", updatedTransactions);
+
+      const updatedUser = {
+        ...(user || {}),
+        transactions: updatedTransactions,
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      // แสดงสถานะบันทึกสำเร็จ
+      setTimeout(() => {
+        saveButton.innerHTML = "<span>บันทึกสำเร็จ</span>";
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      }, 1000);
+    } catch (error) {
+      console.error("Error saving transaction:", error);
+      saveButton.innerHTML = "<span>บันทึกไม่สำเร็จ</span>";
+      saveButton.disabled = false;
+      saveButton.classList.remove(`${buttonStyle.btn__loading}`);
+    }
   };
 
   return (
@@ -155,7 +245,7 @@ const InputTranSactions: React.FC<InputTransactionsProps> = ({
       <header className={InputTransactions.section__header}>
         <h2 className="section__header__title">Add new transactions</h2>
       </header>
-      <form className={InputTransactions.inputsection} onSubmit={onSubmit}>
+      <form className={InputTransactions.inputsection} onSubmit={handleSubmit}>
         <div className={InputTransactions.inputsection__section}>
           <label className={InputTransactions.inputsection__label}>
             <span>วันที่: {currentDate}</span>
@@ -319,8 +409,7 @@ const InputTranSactions: React.FC<InputTransactionsProps> = ({
             type="submit"
             className={`${buttonStyle.btn} ${buttonStyle.btn__primary}`}
             ref={saveButtonRef}
-            onClick={handleClick}
-            disabled={isSaving || !calculation}
+            disabled={isSaving || !calculation || !text}
           >
             <span>Add</span>
           </button>
