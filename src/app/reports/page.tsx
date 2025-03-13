@@ -18,26 +18,14 @@ interface Transaction {
 }
 
 interface TransactionsData {
-  // key-value string,any
   [formattedDate: string]: Transaction;
 }
 interface UserData {
-  //เก็บตาม properties
   userName: string;
   transactions: TransactionsData;
   formattedAmount: string;
   walletTotal: number;
 }
-
-interface DayData {
-  day: number;
-  totalToday: number;
-}
-
-type Props = {
-  transactions: { [key: string]: Transaction[] };
-  last7DaysData: { [key: string]: number[] };
-};
 
 const MyReports = () => {
   const [userData, setUserData] = useState<UserData>({
@@ -528,7 +516,7 @@ const MyReports = () => {
     ));
   };
 
-  const [selectedOption, setSelectedOption] = useState("7 วันล่าสุด"); // '7 วันล่าสุด' เป็น default เมื่อ component ถูก render
+  const [selectedOption, setSelectedOption] = useState("7 วันล่าสุด");
   useEffect(() => {
     generateDoughnutData(
       selectedOption,
@@ -590,11 +578,33 @@ const MyReports = () => {
     }
     toggleDropdown();
   };
+  const handleBackHome = () => {
+    window.location.href = "/";
+  };
 
   return (
     <div className={ReportStyle.report}>
       <header className={ReportStyle.report__header}>
         <h1 className={ReportStyle.h1}>Reports</h1>
+        <button
+          className="absolute left-4 inline-flex p-2 bg-transparent rounded-full border border-yellow-400"
+          onClick={handleBackHome}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
       </header>
       <div className={ReportStyle.report__container}>
         <div className={ReportStyle.report__container__profile}>
@@ -604,6 +614,7 @@ const MyReports = () => {
             walletTotal={userData.walletTotal}
           />
         </div>
+
         <div className={ReportStyle.report__container__filter}>
           <div className={ReportStyle.report__container__filter__dropdown}>
             <button
